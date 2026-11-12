@@ -14,7 +14,6 @@
   "cat.spells": "Sorts",
   "cat.Abilities": "Habilités",
   "cat.Items": "Objets",
-  "cat.Consumables": "Consommables",
   "group.normal.tooltip.header": "Buff Normal!",
   "group.normal.tooltip.desc": "Tente de lancer les sorts configurés dans la fenêtre de buff (Normal)",
   "group.important.tooltip.header": "Buff Important!",

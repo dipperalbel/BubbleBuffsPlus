@@ -14,7 +14,6 @@
   "cat.spells": "Zaubersprüche",
   "cat.Abilities": "Fähigkeiten",
   "cat.Items": "Gegenstände",
-  "cat.Consumables": "Verbrauchsgegenstände",
   "group.normal.tooltip.header": "Normale Buffs!",
   "group.normal.tooltip.desc": "Als <b>Normal<b> konfigurierte Buffs einsetzen.",
   "group.important.tooltip.header": "Wichtige Buffs!",

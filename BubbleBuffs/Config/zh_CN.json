@@ -14,7 +14,6 @@
   "cat.spells": "法术",
   "cat.Abilities": "能力",
   "cat.Items": "物品",
-  "cat.Consumables": "消耗品",
   "group.normal.tooltip.header": "执行标准施法!",
   "group.normal.tooltip.desc": "尝试释放所有标准施法列表中的法术",
   "group.important.tooltip.header": "执行重要施法!",

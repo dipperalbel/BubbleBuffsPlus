@@ -730,7 +730,6 @@ namespace BubbleBuffs {
             CurrentCategory.Add(Category.Spell, "cat.spells".i8());
             CurrentCategory.Add(Category.Ability, "cat.Abilities".i8());
             CurrentCategory.Add(Category.Item, "cat.Items".i8());
-            CurrentCategory.Add(Category.Consumable, "cat.Consumables".i8());
 
 
             ShowShort.BindToView(showShort);
@@ -1889,7 +1888,6 @@ namespace BubbleBuffs {
         Spell,
         Ability,
         Item,
-        Consumable,
     }
 
     public enum BuffGroup {
