@@ -4,6 +4,7 @@ using Kingmaker.Blueprints;
 using Kingmaker.Blueprints.Classes;
 using Kingmaker.Controllers;
 using Kingmaker.EntitySystem.Entities;
+using Kingmaker.Items;
 using Kingmaker.RuleSystem;
 using Kingmaker.RuleSystem.Rules.Abilities;
 using Kingmaker.UI.Models.Log.CombatLog_ThreadSystem;
@@ -93,6 +94,9 @@ namespace BubbleBuffs {
             // What the casts planned so far in this run have left in each metamagic rod.
             var extendRodCharges = new Dictionary<ActivatableAbility, int>();
 
+            // The same for the items whose abilities spend charges.
+            var itemCharges = new Dictionary<ItemEntity, int>();
+
             Dictionary<UnitEntityData, int> remainingArcanistPool = new Dictionary<UnitEntityData, int>();
             BlueprintScriptableObject arcanistPoolBlueprint = ResourcesLibrary.TryGetBlueprint<BlueprintScriptableObject>("cac948cbbe79b55459459dd6a8fe44ce");
 
@@ -119,6 +123,16 @@ namespace BubbleBuffs {
                             if (badResult == null)
                                 badResult = tooltip.AddBad(buff);
                             badResult.messages.Add($"  [{caster.who.CharacterName}] => [{Bubble.GroupById[target].CharacterName}], {"noslot".i8()}");
+                            thisBuffBad++;
+                            continue;
+                        }
+
+                        // The check above sees the charges the item has now, not the ones that the
+                        // casts already planned in this run are about to spend.
+                        if (!ItemCharges.Reserve(caster.SlottedSpell.SourceItem, itemCharges)) {
+                            if (badResult == null)
+                                badResult = tooltip.AddBad(buff);
+                            badResult.messages.Add($"  [{caster.who.CharacterName}] => [{Bubble.GroupById[target].CharacterName}], {"nocharges".i8()}");
                             thisBuffBad++;
                             continue;
                         }

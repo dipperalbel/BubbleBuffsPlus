@@ -37,6 +37,7 @@
   "tooltip.failed": "Buffs Failed",
   "noslot": "no free spell-slot",
   "noarcanist": "no available arcane reservoir points ",
+  "nocharges": "no charges left on the item",
 
   "warn.arcanepool": "  <i>Arcane Resevoir resource is <b>not</b> tracked</i>",
 

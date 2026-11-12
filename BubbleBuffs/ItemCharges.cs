@@ -1,5 +1,6 @@
 using Kingmaker.Blueprints.Items.Equipment;
 using Kingmaker.Items;
+using System.Collections.Generic;
 
 namespace BubbleBuffs {
 
@@ -23,14 +24,34 @@ namespace BubbleBuffs {
         /// <summary>
         /// How many casts the planner may count on. An item that recharges on rest counts for
         /// its full charges, the way a spellbook counts for its full slots: the plan describes a
-        /// rested party, and the cast itself checks what is left. An item that does not
-        /// recharge counts for the charges it still has.
+        /// rested party, and the routine checks what is left when it runs (see
+        /// <see cref="Reserve"/>). An item that does not recharge counts for the charges it
+        /// still has.
         /// </summary>
         public static int PlannedCasts(ItemEntity item) {
             if (item.Blueprint is BlueprintItemEquipment equipment && equipment.RestoreChargesOnRest)
                 return equipment.Charges;
 
             return item.Charges;
+        }
+
+        /// <summary>
+        /// Takes one charge of the item for a cast of a routine that is being put together.
+        /// <paramref name="chargesLeft"/> holds what the casts planned so far in this run have
+        /// left in each item. False if they have taken every charge; true for an item that does
+        /// not spend charges and for an ability that comes from no item.
+        /// </summary>
+        public static bool Reserve(ItemEntity item, Dictionary<ItemEntity, int> chargesLeft) {
+            if (!IsChargedEquipment(item))
+                return true;
+
+            if (!chargesLeft.TryGetValue(item, out int left))
+                left = item.Charges;
+            if (left <= 0)
+                return false;
+
+            chargesLeft[item] = left - 1;
+            return true;
         }
     }
 }
