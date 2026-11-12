@@ -97,8 +97,18 @@ namespace BubbleBuffs {
         private static Harmony harmony;
         public static bool Enabled;
 
+        /// <summary>Id of the mod this one is a fork of.</summary>
+        private const string OriginalModId = "BubbleBuffs";
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "harmony method")]
         static bool Load(UnityModManager.ModEntry modEntry) {
+            // Both mods patch the same screens and load the same asset bundle, so only one may run.
+            var original = UnityModManager.FindMod(OriginalModId);
+            if (original != null && original.Enabled) {
+                modEntry.Logger.Error("Bubble Buffs Plus replaces Bubble Buffs and cannot run next to it. Switch the original Bubble Buffs off in Unity Mod Manager (or remove it) and restart the game.");
+                return false;
+            }
+
             harmony = new Harmony(modEntry.Info.Id);
 #if DEBUG
             modEntry.OnUnload = OnUnload;
