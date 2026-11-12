@@ -1262,7 +1262,8 @@ namespace BubbleBuffs {
                     var skidmarkable = who.spell.IsArcanistSpell && who.spell.Blueprint.School == Kingmaker.Blueprints.Classes.Spells.SpellSchool.Transmutation;
                     shareTransmutationToggle.interactable = skidmarkable && who.who.HasFact(ShareTransmutationFeature);
                     powerfulChangeToggle.interactable = skidmarkable && who.who.HasFact(PowerfulChangeFeature);
-                    reservoirCLBuffToggle.interactable = (who.spell.IsArcanistSpell || (who.spell.Spellbook.Blueprint == SpellTools.Spellbook.ExploiterWizardSpellbook))
+                    // Abilities and item abilities have no spellbook.
+                    reservoirCLBuffToggle.interactable = (who.spell.IsArcanistSpell || (who.spell.Spellbook?.Blueprint == SpellTools.Spellbook.ExploiterWizardSpellbook))
                         && who.who.HasFact(BubbleBlueprints.ReservoirBaseAbility) && !who.who.Progression.IsArchetype(BubbleBlueprints.PhantasmalMageArchetype);
 
                     shareTransmutationLabel.color = shareTransmutationToggle.interactable ? defaultLabelColor : Color.gray;
