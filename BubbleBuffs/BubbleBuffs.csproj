@@ -103,7 +103,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-	<Target Name="Deploy" AfterTargets="Build">
+	<!-- Copies the build into the game's Mods folder. Off unless asked for (-p:DeployToGame=true),
+	     so that a build never changes the installed mod by surprise; build.ps1 -Install does it. -->
+	<Target Name="Deploy" AfterTargets="Build" Condition="'$(DeployToGame)' == 'true'">
 		<ItemGroup>
 			<Files Include="$(TargetDir)\**\*.*" />
 		</ItemGroup>
