@@ -1,3 +1,8 @@
+## Version 5.3.1
+* (Bug Fix) An item whose ability is a choice among several buffs, such as the Signet of House Vespertilio, let a routine cast more than one of them on a single charge. The choices now share the charges of the item.
+* (Bug Fix) The same for any buff that only targets its caster: it no longer counts as castable when the spell slots it shares with other buffs are all taken, which could happen with spontaneous casters and arcanists.
+* (Bug Fix) A routine no longer casts from an item more times than the item has charges left; the casts it leaves out are reported as failed with "no charges left on the item".
+
 ## Version 5.3.0
 First version of Bubble Buffs Plus, a fork of Bubble Buffs 5.2.3.
 * (Feature) Abilities of equipped items that spend charges (a cloak that casts Heroism once a day, a signet ring) are listed in the Items tab and can be part of a routine. Potions, scrolls and wands are not listed.

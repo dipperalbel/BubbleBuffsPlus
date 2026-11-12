@@ -8,7 +8,7 @@
 		     close to the original. -->
 		<AssemblyName>BubbleBuffsPlus</AssemblyName>
 		<Description>Bubble Buffs Plus</Description>
-		<Version>5.3.0</Version>
+		<Version>5.3.1</Version>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 		<LangVersion>latest</LangVersion>
 		<RootNamespace>BubbleBuffs</RootNamespace>
