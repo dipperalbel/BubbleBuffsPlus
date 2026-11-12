@@ -46,6 +46,8 @@ namespace BubbleBuffs {
         public bool ReservoirCLBuff;
         [JsonProperty]
         public bool UseAzataZippyMagic;
+        [JsonProperty]
+        public bool UseExtendRod;
     }
 
     public class SavedBuffState {

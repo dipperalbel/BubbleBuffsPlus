@@ -11,6 +11,7 @@ using Kingmaker.UI.Models.Log.CombatLog_ThreadSystem.LogThreads.Common;
 using Kingmaker.UnitLogic;
 using Kingmaker.UnitLogic.Abilities;
 using Kingmaker.UnitLogic.Abilities.Components;
+using Kingmaker.UnitLogic.ActivatableAbilities;
 using Kingmaker.UnitLogic.Buffs.Blueprints;
 using Kingmaker.Utility;
 using System;
@@ -88,6 +89,9 @@ namespace BubbleBuffs {
             var unitBuffs = Bubble.Group.Select(u => new UnitBuffData(u)).ToDictionary(bd => bd.Unit.UniqueId);
 
             List<CastTask> tasks = new();
+
+            // What the casts planned so far in this run have left in each metamagic rod.
+            var extendRodCharges = new Dictionary<ActivatableAbility, int>();
 
             Dictionary<UnitEntityData, int> remainingArcanistPool = new Dictionary<UnitEntityData, int>();
             BlueprintScriptableObject arcanistPoolBlueprint = ResourcesLibrary.TryGetBlueprint<BlueprintScriptableObject>("cac948cbbe79b55459459dd6a8fe44ce");
@@ -177,7 +181,15 @@ namespace BubbleBuffs {
                         }
                         var spellParams = spellToCast.CalculateParams();
 
+                        // Out of charges is not a failure: the buff is cast without the rod.
+                        ActivatableAbility extendRod = null;
+                        if (caster.UseExtendRod) {
+                            extendRod = ExtendRods.Reserve(caster.who, spellToCast, extendRodCharges);
+                            Main.Verbose($"   Extend rod for {spellToCast.Name}: {(extendRod != null ? extendRod.Name : "none available")}", "apply");
+                        }
+
                         var task = new CastTask {
+                            ExtendRod = extendRod,
                             SlottedSpell = caster.SlottedSpell,
                             Target = new TargetWrapper(forTarget.Unit),
                             Caster = caster.who,
@@ -230,6 +242,8 @@ namespace BubbleBuffs {
         public TargetWrapper Target;
         public UnitEntityData Caster;
         public bool SelfCastOnly;
+        /// <summary>The metamagic rod of Extend to cast with; null to cast without one.</summary>
+        public ActivatableAbility ExtendRod;
 
         public Retentions Retentions {
             get {

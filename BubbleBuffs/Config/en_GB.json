@@ -47,6 +47,7 @@
   "use.sharetransmutation": "Allow Share Transmutation",
   "use.reservoirclbuff": "Use Reservoir Caster Level Buff",
   "use.azatazippymagic": "Control Azata Zippy Magic Secondary Buff",
+  "use.extendrod": "Extend with a metamagic rod",
   "nolimit": "no limit",
 
   "remove-all": "Remove from all",

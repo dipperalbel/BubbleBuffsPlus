@@ -29,6 +29,11 @@ namespace BubbleBuffs {
             var byCaster = tasks.GroupBy(task => task.Caster).Select(x => x.GetEnumerator()).ToList();
             UnitCommand[] running = new UnitCommand[byCaster.Count];
 
+            // The Extend rods of each caster, set for the command it is running. The command
+            // creates and triggers the cast rule at some point of its animation, so the rods
+            // stay set until the command is over. A caster runs one command at a time.
+            IDisposable[] heldRods = new IDisposable[byCaster.Count];
+
             int remaining = byCaster.Count;
 
             while (byCaster.Any(x => x != null)) {
@@ -38,6 +43,8 @@ namespace BubbleBuffs {
                     if (current != null) {
                         if (current.IsFinished) {
                             running[i] = null;
+                            heldRods[i]?.Dispose();
+                            heldRods[i] = null;
                         }
                         continue;
                     }
@@ -54,6 +61,7 @@ namespace BubbleBuffs {
                     }
 
                     current = Cast(queue.Current);
+                    heldRods[i] = ExtendRods.Hold(queue.Current.Caster, queue.Current.ExtendRod);
                     queue.Current.Caster.Commands.Run(current);
                     running[i] = current;
                     break;

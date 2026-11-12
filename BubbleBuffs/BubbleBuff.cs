@@ -194,6 +194,7 @@ namespace BubbleBuffs {
                     caster.PowerfulChange = casterState.PowerfulChange;
                     caster.ReservoirCLBuff = casterState.ReservoirCLBuff;
                     caster.AzataZippyMagic = casterState.UseAzataZippyMagic;
+                    caster.UseExtendRod = casterState.UseExtendRod;
                 }
             }
         }
@@ -333,6 +334,8 @@ namespace BubbleBuffs {
         public bool PowerfulChange;
         public bool ReservoirCLBuff;
         public bool AzataZippyMagic;
+        /// <summary>Cast this buff with a metamagic rod of Extend, while the caster has one with charges.</summary>
+        public bool UseExtendRod;
         public UnitEntityData who;
         public AbilityData baseSpell;
         public Spellbook book;

@@ -271,6 +271,7 @@ namespace BubbleBuffs {
                     state.PowerfulChange = caster.PowerfulChange;
                     state.ReservoirCLBuff = caster.ReservoirCLBuff;
                     state.UseAzataZippyMagic = caster.AzataZippyMagic;
+                    state.UseExtendRod = caster.UseExtendRod;
                 }
             }
 

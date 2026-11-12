@@ -1047,6 +1047,7 @@ namespace BubbleBuffs {
             var (shareTransmutationToggle, shareTransmutationLabel) = MakePopoutToggle("use.sharetransmutation".i8());
             var (reservoirCLBuffToggle, reservoirCLBuffLabel) = MakePopoutToggle("use.reservoirclbuff".i8());
             var (azataZippyMagicToggle, azataZippyMagicLabel) = MakePopoutToggle("use.azatazippymagic".i8());
+            var (extendRodToggle, extendRodLabel) = MakePopoutToggle("use.extendrod".i8());
             var defaultLabelColor = shareTransmutationLabel.color;
 
             (ToggleWorkaround, TextMeshProUGUI) MakePopoutToggle(string text) {
@@ -1126,6 +1127,12 @@ namespace BubbleBuffs {
             azataZippyMagicToggle.onValueChanged.AddListener(allow => {
                 if (SelectedCaster.Value >= 0 && view.Get(out var buff)) {
                     buff.CasterQueue[SelectedCaster.Value].AzataZippyMagic = allow;
+                    state.Recalculate(true);
+                }
+            });
+            extendRodToggle.onValueChanged.AddListener(allow => {
+                if (SelectedCaster.Value >= 0 && view.Get(out var buff)) {
+                    buff.CasterQueue[SelectedCaster.Value].UseExtendRod = allow;
                     state.Recalculate(true);
                 }
             });
@@ -1282,6 +1289,11 @@ namespace BubbleBuffs {
 
                     azataZippyMagicToggle.interactable = hasAzataZippyMagicFact && !isSpellMass && canCastOnOthers;
                     azataZippyMagicLabel.color = azataZippyMagicToggle.interactable ? defaultLabelColor : Color.gray;
+
+                    // Metamagic rod of Extend: offered when the caster owns one that suits the spell
+                    extendRodToggle.isOn = who.UseExtendRod;
+                    extendRodToggle.interactable = ExtendRods.CanExtend(who.who, who.spell);
+                    extendRodLabel.color = extendRodToggle.interactable ? defaultLabelColor : Color.gray;
 
                 }
 

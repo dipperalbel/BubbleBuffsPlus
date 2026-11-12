@@ -21,8 +21,10 @@ namespace BubbleBuffs {
                 // Subscribe to the RuleCastSpell event that will be executed by the trigger
                 EventBus.Subscribe(new EngineCastingHandler(task, true));
 
-                // Trigger the RuleCastSpell
-                return Rulebook.Trigger<RuleCastSpell>(new(task.SpellToCast, task.Target));
+                // Trigger the RuleCastSpell, with the caster's Extend rods set for this cast only
+                using (ExtendRods.Hold(task.Caster, task.ExtendRod)) {
+                    return Rulebook.Trigger<RuleCastSpell>(new(task.SpellToCast, task.Target));
+                }
             } 
             catch (Exception ex) {
                 Main.Error(ex, "Instant Engine Casting");
