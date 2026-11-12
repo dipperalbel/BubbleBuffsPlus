@@ -153,6 +153,18 @@ namespace BubbleBuffs {
                                     charIndex: characterIndex,
                                     archmageArmor: false,
                                     category: Category.Ability);
+                        } else if (ItemCharges.IsChargedEquipment(sourceItem)) {
+                            Main.Verbose($"      Adding item ability: {ability.Data.Name} from {sourceItem.Name}", "state");
+                            AddBuff(dude: dude,
+                                    book: null,
+                                    spell: ability.Data,
+                                    baseSpell: null,
+                                    credits: new ReactiveProperty<int>(ItemCharges.PlannedCasts(sourceItem)),
+                                    newCredit: true,
+                                    creditClamp: int.MaxValue,
+                                    charIndex: characterIndex,
+                                    archmageArmor: false,
+                                    category: Category.Item);
                         }
                     }
                 }
