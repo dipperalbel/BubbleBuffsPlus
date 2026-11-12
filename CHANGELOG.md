@@ -1,3 +1,12 @@
+## Version 5.3.0
+First version of Bubble Buffs Plus, a fork of Bubble Buffs 5.2.3.
+* (Feature) Abilities of equipped items that spend charges (a cloak that casts Heroism once a day, a signet ring) are listed in the Items tab and can be part of a routine. Potions, scrolls and wands are not listed.
+* (Feature) New caster option "Extend with a metamagic rod": the routine turns the caster's rod of Extend on for the buffs that ask for it and puts the rod toggles back afterwards.
+* (Feature) Removed the Consumables tab, which was always empty.
+* (Bug Fix) The caster options no longer fail on an ability that does not come from a spellbook.
+* (Maintenance) The mod has its own id, folder and assembly (BubbleBuffsPlus) and does not load while the original Bubble Buffs is enabled.
+* (Maintenance) Added build.ps1; a build no longer copies itself into the game's Mods folder unless asked to.
+
 ## Version 5.1.4
 * Fixes and stuff
 

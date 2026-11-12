@@ -1,45 +1,55 @@
-# Bubbles Ultimate Buff Bot Lite Extra Simple (Bubbles)
+# Bubble Buffs Plus
 
-## About
-This mod for Pathfinder Wrath of the Righteous adds an in-game option to spellbooks to create buff routines.
+A fork of [Bubble Buffs](https://github.com/factubsio/BubbleBuffs) (on Nexus Mods: [Bubbles Ultimate Buff Bot Lite Extra Simple](https://www.nexusmods.com/pathfinderwrathoftherighteous/mods/195)), the mod for Pathfinder: Wrath of the Righteous that adds buff routines to the spellbook screen. You decide once who casts which buff on whom, then cast them all with one button.
 
-To download a pre-built version of this mod, go to Nexus Mod at https://www.nexusmods.com/pathfinderwrathoftherighteous/mods/195
+Bubble Buffs Plus does everything the original does and adds the changes below. Download it from [Nexus Mods](https://www.nexusmods.com/pathfinderwrathoftherighteous/mods/1268).
 
+## What is different from Bubble Buffs
 
-## Development Setup (Windows)
-1. [Install Visual Studio 2022](https://visualstudio.microsoft.com/vs/) (any version)
-2. To debug with Visual Studio, be sure to include the "Game Development with Unity" workload.
-3. Clone this github repository
-4. Go to System Properties > Environment Variables and add WrathPathDebug to the Pathfinder WOTR install path (for example: C:\Program Files (x86)\Steam\steamapps\common\Pathfinder Second Adventure)
+- **Abilities of equipped items that spend charges.** A cloak that casts Heroism once a day, a signet ring and similar items are listed in the **Items** tab and can be part of a routine. The original leaves these abilities out. An item that recharges when the party rests counts for all its charges; an item that does not recharge counts for the charges it has left. Potions, scrolls and wands are not listed.
+- **Metamagic rod of Extend.** In the popout with the options of a caster there is a new one, **Extend with a metamagic rod**. It can be ticked when the caster owns a rod of Extend that suits the spell. The routine turns the rod on for the buffs you ticked and puts the rod toggles back as they were when it is done. With several rods it takes the weakest one that suits the spell, so that a greater rod is kept for the spells only it can extend. When the rods run out of charges, the buff is cast without one. While a routine runs, the caster's Extend rods are off for the buffs you did not tick, so no charge is spent on them.
+- **No Consumables tab.** The tab was always empty, so it is gone.
+- **A mod of its own.** Bubble Buffs Plus has its own id and folder (`BubbleBuffsPlus`). It replaces Bubble Buffs and does not load while the original is enabled.
 
-## Debugging
-Owlcat's wiki is slightly out of date, but still a good resource at https://github.com/spacehamster/OwlcatModdingWiki/wiki/Debugging#debugging-with-visual-studio
+## Installation
 
-Instructions below are updated for Pathfinder Wrath of the Righteous Definitive Edition
-1. To debug, download the [Unity Hub](https://unity3d.com/get-unity/download).  
-2. Go https://unity3d.com/get-unity/download/archive download and install version 2020.3.33f1 of the editor (this coincides with the Pathfinder WOTR Definitive Edition Unity update).
-3. Navigate to [UnityFolder]\Editor\Data\PlaybackEngines\windowsstandalonesupport\Variations\win64_development_mono\ and copy UnityPlayer.dll and WinPixEventRuntime.dll to [GameDir] and overwrite it (I prefer to save the original UnityPlayer.dll as UnityPlayer.dll.original).
-4. Use text editor open [GameDir]\Wrath_Data\boot.config and add:
+1. Install [Unity Mod Manager](https://www.nexusmods.com/site/mods/21), version 0.23.0 or later, and set it up for Wrath of the Righteous.
+2. If you have Bubble Buffs, switch it off in Unity Mod Manager or remove it.
+3. Install the Bubble Buffs Plus zip with Unity Mod Manager, or extract it so that the files are in `<game folder>\Mods\BubbleBuffsPlus\`.
+
+To keep the buff setups you made with Bubble Buffs, copy the `bubblebuff-*.json` files from `<game folder>\Mods\BubbleBuffs\UserSettings\` to `<game folder>\Mods\BubbleBuffsPlus\UserSettings\`. There is one file for each playthrough.
+
+## Building
+
+You need the game installed and the .NET SDK (the project is built here with version 9).
+
+```powershell
+.\build.ps1            # builds and writes dist\BubbleBuffsPlus-<version>.zip
+.\build.ps1 -Install   # also copies the build into the game's Mods folder (close the game first)
 ```
-wait-for-managed-debugger=1
-player-connection-debug=1
+
+`build.ps1` looks for the game in the default Steam folder. For another location, put a `GamePath.props` file next to `BubbleBuffs.sln`:
+
+```xml
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <WrathInstallDir>D:\Games\Pathfinder Second Adventure</WrathInstallDir>
+  </PropertyGroup>
+</Project>
 ```
-5. Run [GameDir]/Wrath.exe, then you will see a dialog with message "You can attach a managed debugger now if you want"
-6. Go to Visual Studio 2022, click menu Debug/Attach Unity Debugger A "Select Unity instance" dialog will show you some thing like..
-```
-Project              Machine              Type    Port       Information
-<no name>            Your_PC_Name         Player  56593      PID:xxxx
-```
-7. Double click on it, then select ok on the debug dialog prompt to begin debugging.
 
-Note: This project includes a post build option that will automatically update the default mod location in the Pathfinder WOTR mod folder.  To prevent automatically overwriting the existing mod, change the post build option.
+The version comes from `BubbleBuffs\Info.json`. The [original README](https://github.com/factubsio/BubbleBuffs#debugging) explains how to attach a debugger to the game.
 
-### Acknowledgments:  
+## Credits
 
--   @Balkoth for Buffbot which is the direct inspiration for this
--   Discord members who tested super early broken extra-poop versions!
--   Pathfinder Wrath of The Righteous Discord channel members
--	@Vek17 extra special thanks because this mod is pretty much a copy paste of his to get it off the ground :pray:
--   Join our [Discord](https://discord.gg/bQVwsP7cky)
+Bubble Buffs is the work of bubbles ([factubsio](https://github.com/factubsio)) and of the people who contributed to it; this fork only adds the changes listed above. The acknowledgments of the original:
 
+- @Balkoth for Buffbot, the direct inspiration for Bubble Buffs
+- @Vek17, whose project the mod was started from
+- the Discord members who tested the early versions, and the Pathfinder: Wrath of the Righteous Discord channel members
 
+Fork by Alberto Bellumat.
+
+## License
+
+MIT, as the original. See [LICENSE](LICENSE).

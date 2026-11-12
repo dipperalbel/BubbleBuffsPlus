@@ -4,10 +4,10 @@
     "DisplayName": "Bubble Buffs Plus",
     "EntryMethod": "BubbleBuffs.Main.Load",
     "GameVersion": "1.4.0",
-    "HomePage": "",
+    "HomePage": "https://www.nexusmods.com/pathfinderwrathoftherighteous/mods/1268",
     "Id": "BubbleBuffsPlus",
     "ManagerVersion": "0.23.0",
-    "Repository": "",
+    "Repository": "https://raw.githubusercontent.com/dipperalbel/BubbleBuffsPlus/master/Repository.json",
     "Requirements": [],
     "LoadAfter": ["EnhancedInventory"],
     "Version": "5.3.0"
