@@ -373,7 +373,10 @@ namespace BubbleBuffs {
             get {
                 if (Banned)
                     return 0;
-                return ClampCredits(Math.Min(ClampValue, ClampForCap), credits.Value, spent);
+                // A clamp or a cap limits what this caster may spend on this buff. It never adds
+                // to what is left in the pool the credits come from, which other buffs may share:
+                // the spells of a spontaneous level, the variants of one item ability.
+                return Math.Min(ClampCredits(Math.Min(ClampValue, ClampForCap), credits.Value, spent), credits.Value);
             }
         }
         public int AvailableCreditsNoCap => Banned ? 0 : ClampCredits(ClampValue, credits.Value, spent);
